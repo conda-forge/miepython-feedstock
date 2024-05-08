@@ -1,5 +1,5 @@
 {% set name = "miepython" %}
-{% set version = "2.5.3" %}
+{% set version = "2.5.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/miepython-{{ version }}.tar.gz
-  sha256: 3e13b36949db0aaf72787dffd1003f936cb72c062a9ca209cfa5982799252dd2
+  sha256: 1f948529fe4f65eca39758bf7c5c2453a83c77094979a2ccdaf4b0e3e6d298d8
 
 build:
   noarch: python
@@ -33,7 +33,7 @@ test:
     - tests/test_mie.py
   commands:
     - pytest tests/test_mie.py
-    
+
 about:
   home: https://github.com/scottprahl/miepython.git
   summary: |
