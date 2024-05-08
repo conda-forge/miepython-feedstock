@@ -17,12 +17,12 @@ build:
 requirements:
   host:
     - pip
-    - python >=3.9
+    - python >=3.7
   run:
     - matplotlib-base
     - numba
     - numpy
-    - python >=3.9
+    - python >=3.7
 
 test:
   imports:
@@ -30,10 +30,9 @@ test:
   requires:
     - pytest
   source_files:
-    - tests/test_jit.py
-    - tests/test_nojit.py
+    - tests/test_mie.py
   commands:
-    - pytest tests/test_nojit.py tests/test_jit.py
+    - pytest tests/test_mie.py
 
 about:
   home: https://github.com/scottprahl/miepython.git
