@@ -1,5 +1,6 @@
 {% set name = "miepython" %}
 {% set version = "2.5.5" %}
+{% set python_min = "3.7" %}
 
 package:
   name: {{ name|lower }}
@@ -16,18 +17,20 @@ build:
 
 requirements:
   host:
+    - python {{ python_min }}
     - pip
-    - python >=3.7
+    - setuptools
   run:
+    - python >={{ python_min }}
     - matplotlib-base
     - numba
     - numpy
-    - python >=3.7
 
 test:
   imports:
     - miepython
   requires:
+    - python {{ python_min }}
     - pytest
   source_files:
     - tests/test_mie.py
@@ -53,7 +56,6 @@ about:
     - LICENSE.txt
   doc_url: https://miepython.readthedocs.io/
   dev_url: https://github.com/scottprahl/miepython
-
 
 extra:
   recipe-maintainers:
