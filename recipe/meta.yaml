@@ -1,6 +1,6 @@
 {% set name = "miepython" %}
-{% set version = "2.5.5" %}
-{% set python_min = "3.7" %}
+{% set version = "3.0.0" %}
+{% set python_min = "3.9" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/miepython-{{ version }}.tar.gz
-  sha256: 02afaddc8728c25e7583ca9126d697882a744a5333d194fd50de5a3d2f5b3206
+  sha256: e1325aadec146d69651b6734a1978b11f2bc9ad3db3568b404ce979ff0fc0fc9
 
 build:
   noarch: python
@@ -33,9 +33,9 @@ test:
     - python {{ python_min }}
     - pytest
   source_files:
-    - tests/test_mie.py
+    - tests/test_jit.py
   commands:
-    - pytest tests/test_mie.py
+    - pytest tests/test_jit.py
 
 about:
   home: https://github.com/scottprahl/miepython.git
