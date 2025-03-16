@@ -33,9 +33,9 @@ test:
     - python {{ python_min }}
     - pytest
   source_files:
-    - tests/test_mie.py
+    - tests/test_jit.py
   commands:
-    - pytest tests/test_mie.py
+    - pytest tests/test_jit.py
 
 about:
   home: https://github.com/scottprahl/miepython.git
