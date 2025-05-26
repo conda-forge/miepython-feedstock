@@ -1,5 +1,5 @@
 {% set name = "miepython" %}
-{% set version = "3.0.0" %}
+{% set version = "3.0.2" %}
 {% set python_min = "3.9" %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/miepython-{{ version }}.tar.gz
-  sha256: e1325aadec146d69651b6734a1978b11f2bc9ad3db3568b404ce979ff0fc0fc9
+  sha256: 208ecea25d42241650e6947173871695fc67e4493260545e5199ca85ffd7bc9a
 
 build:
   noarch: python
