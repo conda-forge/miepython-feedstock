@@ -26,7 +26,7 @@ requirements:
   run:
     - python >={{ python_min }}
     - matplotlib-base
-    - numba  # [not emscripten]
+    - numba
     - numpy
     - scipy
 
