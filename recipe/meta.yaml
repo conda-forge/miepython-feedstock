@@ -13,16 +13,16 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
+  # pure python, so the build needs nothing but the build backend; numpy and
+  # scipy are imported at run time only
   host:
     - python {{ python_min }}
     - pip
     - setuptools >=77
     - wheel
-    - numpy
-    - scipy
   run:
     - python >={{ python_min }}
     - matplotlib-base
@@ -33,26 +33,39 @@ requirements:
 test:
   imports:
     - miepython
+    - miepython.rayleigh
+    - miepython.monte_carlo
   requires:
     - python {{ python_min }}
+    - pip
     - pytest
   source_files:
-    - tests/test_jit.py
+    # the whole directory: conftest.py picks the backend and reference.py holds
+    # the independent implementations the tests compare against
+    - tests/
   commands:
-    - pytest tests/test_jit.py
+    - pip check
+    # two files need a source checkout rather than an installed package:
+    # test_all_examples.py globs miepython/examples, and test_all_notebooks.py
+    # reads docs/*.ipynb through nbformat.  Neither ships in the sdist.
+    - pytest tests -p no:cacheprovider --ignore=tests/test_all_examples.py --ignore=tests/test_all_notebooks.py
+    # the suite above runs the pure-python kernels; MIEPYTHON_USE_JIT has to be
+    # set before miepython is imported, so exercise the numba path from python
+    - python -c "import os; os.environ['MIEPYTHON_USE_JIT'] = '1'; import miepython; assert miepython.USE_JIT; print(miepython.efficiencies_mx(1.5 - 0.1j, 1.0))"
 
 about:
-  home: https://github.com/scottprahl/miepython.git
-  summary: |
+  home: https://github.com/scottprahl/miepython
+  summary: Mie scattering of a plane wave by a homogeneous sphere
+  description: |
     A pure Python module to calculate light scattering for
     non-absorbing, partially-absorbing, or perfectly-conducting spheres. Mie
     theory is used, following the procedure described by Wiscombe
     <http://opensky.ucar.edu/islandora/object/technotes:232>. This code has
-    been validated against his results. 
+    been validated against his results.
 
-    This code provides functions for calculating the extinction efficiency, 
-    scattering efficiency, backscattering, and scattering asymmetry. Moreover, 
-    a set of angles can be given to calculate the scattering for a sphere at 
+    This code provides functions for calculating the extinction efficiency,
+    scattering efficiency, backscattering, and scattering asymmetry. Moreover,
+    a set of angles can be given to calculate the scattering for a sphere at
     each of those angles.
   license: MIT
   license_family: MIT
