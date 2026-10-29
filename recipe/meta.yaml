@@ -1,5 +1,5 @@
 {% set name = "miepython" %}
-{% set version = "3.3.0" %}
+{% set version = "3.3.1" %}
 {% set python_min = "3.10" %}
 
 package:
@@ -7,13 +7,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/miepython-{{ version }}.tar.gz
-  sha256: 391ebf3f033ca941ffb47db0b75d508761452fa3d8fb145e0cdca80c191003e3
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/miepython-{{ version }}.tar.gz
+  sha256: eabe75b370fe8005046ab38a93f0e471bac008473c8151be6ad8fcae8355967b
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   # pure python, so the build needs nothing but the build backend; numpy and
