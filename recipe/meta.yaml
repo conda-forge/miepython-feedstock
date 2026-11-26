@@ -1,6 +1,6 @@
 {% set name = "miepython" %}
 {% set version = "3.4.0" %}
-{% set python_min = "3.10" %}
+{% set python_min = "3.11" %}
 
 package:
   name: {{ name|lower }}
@@ -21,11 +21,12 @@ requirements:
   host:
     - python {{ python_min }}
     - pip
+    # setuptools is needed because the script above builds with
+    # --no-build-isolation; wheel is not, it has been part of setuptools
+    # since 70.1 and the floor here is 77
     - setuptools >=77
-    - wheel
   run:
     - python >={{ python_min }}
-    - matplotlib-base
     - numba
     - numpy
     - scipy
