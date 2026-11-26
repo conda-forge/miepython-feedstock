@@ -1,6 +1,6 @@
 {% set name = "miepython" %}
-{% set version = "3.3.0" %}
-{% set python_min = "3.10" %}
+{% set version = "3.4.0" %}
+{% set python_min = "3.11" %}
 
 package:
   name: {{ name|lower }}
@@ -8,12 +8,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/miepython-{{ version }}.tar.gz
-  sha256: 391ebf3f033ca941ffb47db0b75d508761452fa3d8fb145e0cdca80c191003e3
+  sha256: d3dc949e61db12e7f61bbb27c1b9f08defebbf164871527d56c53f9a53857fff
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 1
+  number: 0
 
 requirements:
   # pure python, so the build needs nothing but the build backend; numpy and
@@ -21,11 +21,12 @@ requirements:
   host:
     - python {{ python_min }}
     - pip
+    # setuptools is needed because the script above builds with
+    # --no-build-isolation; wheel is not, it has been part of setuptools
+    # since 70.1 and the floor here is 77
     - setuptools >=77
-    - wheel
   run:
     - python >={{ python_min }}
-    - matplotlib-base
     - numba
     - numpy
     - scipy
